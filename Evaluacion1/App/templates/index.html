@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONICA - Monitoreo Inteligente de la Calidad del Aire</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+</head>
+<body>
+    <header>
+        <h1>MONICA</h1>
+        <h2>Monitoreo Inteligente de la Calidad del Aire</h2>
+        <p>Una herramienta virtual para visualizar y entender de manera sencilla la calidad del aire en tu comuna.</p>
+    </header>
+
+    <div class="content-wrapper">
+        <main>
+            <section class="intro">
+                <p>MONICA te permitirá visualizar los niveles de contaminación en tu área de manera rápida y sencilla, entregando información clara y comprensible sobre las partículas presentes en el aire. Así, podrás comprender mejor la calidad del aire de tu comuna y su impacto en tu salud.</p>
+            </section>
+
+            <div class="selection-box">
+                <label for="comunas">Selecciona una comuna:</label>
+                <select id="comunas" name="comunas">
+                    <option value="todas">Ver todas las comunas</option>
+                    <option value="la-florida">La Florida</option>
+                    <option value="puente-alto">Puente Alto</option>
+                    <option value="nunoa">Ñuñoa</option>
+                    <option value="macul">Macul</option>
+                    <option value="la-reina">La Reina</option>
+                </select>
+                <a href="{% url 'mostrar_niveles' %}" id="ver-niveles" class="btn">Ver Niveles</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 MONICA. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('ver-niveles').addEventListener('click', function() {
+            const comuna = document.getElementById('comunas').value;
+
+            // Mostrar alerta con la comuna seleccionada
+            if (comuna === "todas") {
+                alert("Has seleccionado ver todas las comunas.");
+            } else if (comuna === "la-florida") {
+                alert("Has seleccionado la comuna: La Florida.");
+            } else if (comuna === "puente-alto") {
+                alert("Has seleccionado la comuna: Puente Alto.");
+            } else if (comuna === "nunoa") {
+                alert("Has seleccionado la comuna: Ñuñoa.");
+            } else if (comuna === "macul") {
+                alert("Has seleccionado la comuna: Macul.");
+            } else if (comuna === "la-reina") {
+                alert("Has seleccionado la comuna: La Reina.");
+            }
+        });
+    </script>
+</body>
+</html>

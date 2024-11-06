@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8; /* Color celeste muy suave, representación de aire limpio */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #003366; /* Azul del infinito */
+    color: white;
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    height: 150px; 
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2.5em; 
+    margin: 0;
+    align-self: flex-start; 
+}
+
+h2 {
+    font-size: 1.2em; 
+    margin: 0;
+    font-weight: lighter;
+    margin-top: 5px; 
+}
+
+p {
+    font-size: 1.2em;
+    margin: 10px 0; 
+    text-align: center; 
+    color: #a0aec0; /* Gris perla */
+}
+
+.intro {
+    margin: 20px 0;
+    padding: 0 10%;
+    text-align: center; 
+    color: #003366; /* Azul del infinito */
+}
+
+.content-wrapper {
+    background-image: url('https://images.pexels.com/photos/910564/pexels-photo-910564.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    min-height: calc(100vh - 150px); 
+    padding: 20px 0; 
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px; 
+    background: rgba(255, 255, 255, 0.85); /* Fondo blanco con transparencia */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.selection-box {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con un poco más de opacidad */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-size: 1.2em;
+    color: #003366; /* Azul del infinito */
+}
+
+select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #003366; /* Azul del infinito */
+}
+
+button {
+    background-color: #0099cc; /* Celeste más fuerte */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #007acc; /* Celeste más oscuro al pasar el mouse */
+}
+
+footer {
+    background-color: #003366; /* Azul del infinito */
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}

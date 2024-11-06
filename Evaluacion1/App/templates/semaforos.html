@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicador de Calidad del Aire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .semaforos-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .semaforo {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .traffic-light {
+            width: 100px;
+            height: 300px;
+            background-color: #333;
+            border-radius: 20px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .light {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+            border-radius: 50%;
+            background-color: #444;
+        }
+
+        .light.green {
+            background-color: green;
+        }
+
+        .light.yellow {
+            background-color: yellow;
+        }
+
+        .light.red {
+            background-color: red;
+        }
+
+        .particle-name {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Indicador de Calidad del Aire</h1>
+
+    <div class="semaforos-container">
+        <!-- Semáforo para PM2.5 -->
+        <div class="semaforo">
+            <div class="traffic-light">
+                <div class="light" id="greenLightPM25"></div>
+                <div class="light" id="yellowLightPM25"></div>
+                <div class="light" id="redLightPM25"></div>
+            </div>
+            <div class="particle-name">PM2.5</div>
+        </div>
+
+        <!-- Semáforo para PM10 -->
+        <div class="semaforo">
+            <div class="traffic-light">
+                <div class="light" id="greenLightPM10"></div>
+                <div class="light" id="yellowLightPM10"></div>
+                <div class="light" id="redLightPM10"></div>
+            </div>
+            <div class="particle-name">PM10</div>
+        </div>
+
+        <!-- Semáforo para NO2 -->
+        <div class="semaforo">
+            <div class="traffic-light">
+                <div class="light" id="greenLightNO2"></div>
+                <div class="light" id="yellowLightNO2"></div>
+                <div class="light" id="redLightNO2"></div>
+            </div>
+            <div class="particle-name">NO2</div>
+        </div>
+
+        <!-- Semáforo para CO -->
+        <div class="semaforo">
+            <div class="traffic-light">
+                <div class="light" id="greenLightCO"></div>
+                <div class="light" id="yellowLightCO"></div>
+                <div class="light" id="redLightCO"></div>
+            </div>
+            <div class="particle-name">CO</div>
+        </div>
+
+        <!-- Semáforo para O3 -->
+        <div class="semaforo">
+            <div class="traffic-light">
+                <div class="light" id="greenLightO3"></div>
+                <div class="light" id="yellowLightO3"></div>
+                <div class="light" id="redLightO3"></div>
+            </div>
+            <div class="particle-name">O3</div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación de calidad del aire para cada tipo de partícula
+        let airQualityData = {
+            PM25: 'buena',
+            PM10: 'moderada',
+            NO2: 'mala',
+            CO: 'buena',
+            O3: 'moderada'
+        };
+
+        function updateTrafficLight(particle, quality) {
+            const greenLight = document.getElementById(`greenLight${particle}`);
+            const yellowLight = document.getElementById(`yellowLight${particle}`);
+            const redLight = document.getElementById(`redLight${particle}`);
+
+            // Apagar todas las luces
+            greenLight.classList.remove('green');
+            yellowLight.classList.remove('yellow');
+            redLight.classList.remove('red');
+
+            if (quality === 'buena') {
+                greenLight.classList.add('green');
+            } else if (quality === 'moderada') {
+                yellowLight.classList.add('yellow');
+            } else if (quality === 'mala') {
+                redLight.classList.add('red');
+            }
+        }
+
+        // Actualizar los semáforos
+        updateTrafficLight('PM25', airQualityData.PM25);
+        updateTrafficLight('PM10', airQualityData.PM10);
+        updateTrafficLight('NO2', airQualityData.NO2);
+        updateTrafficLight('CO', airQualityData.CO);
+        updateTrafficLight('O3', airQualityData.O3);
+    </script>
+</body>
+</html>
