@@ -6,7 +6,7 @@ class SensorParticulaDAO:
     
     @staticmethod
     def obtener_registro_por_particula_y_fecha(particula_id, fecha):
-        """
-        Recupera el registro de `SensorParticula` con el particula_id y la fecha especificados.
-        """
+        
+        #Recupera el registro de `SensorParticula` con el particula_id y la fecha especificados.
+        
         return SensorParticula.objects.filter(particula_id=particula_id, fecha=fecha).first()

@@ -4,6 +4,7 @@ from datetime import datetime
 from App import DAOComunaImplement
 from App.DAOSensorParticulaImplement import SensorParticulaService
 from App.DAOComuna import ComunaDAO
+from App.DAOParticulas import ParticulasDAO
 
 
 
@@ -35,22 +36,18 @@ def mostrar_niveles(request):
         # Usa la fecha actual si no se proporciona en los parámetros
         fecha = datetime.now().strftime("%y%m%d")
         
-        
+    particulas_dto= ParticulasDAO.obtener_todas_las_particulas()  
         
     particulas = {}
-    particulas_ids = {
-        'PM10':1,
-        'PM25':2,
-        'O3'  :3,
-        'NO2' :4,
-        'SO2' :5,
-        'CO'  :6,
-    }
+  
+    particulas_dict = {particula.nombre_particula: (particula.id_particula, particula.descripcion) for particula in particulas_dto}
+
     
-    for nombre, particula_id in particulas_ids.items():
+    for nombre, (particula_id, descripcion) in particulas_dict.items():
         try:
-            estado_aire = SensorParticulaService.obtener_estado_aire(particula_id, fecha)
+            estado_aire = SensorParticulaService.obtener_estado_aire(particula_id, nombre, fecha)
             particulas[nombre] = estado_aire
+            print(descripcion)
         except SensorParticulaService.SensorParticulaNoEncontrada:
             particulas[nombre] = 'No hay datos'
 

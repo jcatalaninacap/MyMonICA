@@ -1,7 +1,6 @@
 
 from App.DAOSensorParticula import SensorParticulaDAO
-from App.DTOSensorParticula import SensorParticulaDTO 
-from django.core.exceptions import ObjectDoesNotExist
+
 
 
 class SensorParticulaService:
@@ -21,9 +20,11 @@ class SensorParticulaService:
             return registros_validados
 
     @staticmethod
-    def obtener_estado_aire(particula_id, fecha):
+    def obtener_estado_aire(particula_id, nombre, fecha):
+
         # Obtén el registro utilizando el DAO
         sensor_particula = SensorParticulaDAO.obtener_registro_por_particula_y_fecha(particula_id, fecha)
+        
         
         if sensor_particula is None:
             # Si no se encuentra el registro, lanza una excepción personalizada
@@ -40,18 +41,18 @@ class SensorParticulaService:
             registros_validados, registros_preliminares, registros_no_validados
         )
 
-        estado, color = SensorParticulaService.determinar_estado_calidad_aire(registro, particula_id)
+        estado, color = SensorParticulaService.determinar_estado_calidad_aire(registro, nombre)
         
         #print(f"Estado: {estado}, Color: {color}")
 
         return color
     
     @staticmethod
-    def determinar_estado_calidad_aire(valor, tipo_contaminante):
+    def determinar_estado_calidad_aire(valor, nom_particula):
 
-        #   tipo_contaminante:  'PM10', 'PM2.5', 'O3', 'NO2', 'CO' o 'SO2'.
+        #   nom_particula:  'PM10', 'PM25', 'O3', 'NO2', 'SO2', 'CO'.
         
-        if tipo_contaminante == 1:
+        if nom_particula == 'PM10':
             if valor < 50:
                 return 'Buena', 'verde'
             elif 50 <= valor <= 80:
@@ -64,7 +65,7 @@ class SensorParticulaService:
                 return 'Emergencia', 'rojo'
 
 
-        elif tipo_contaminante == 2:
+        elif nom_particula == 'PM25':
             if valor < 25:
                 return 'Buena', 'verde'
             elif 25 <= valor <= 37:
@@ -77,7 +78,7 @@ class SensorParticulaService:
                 return 'Emergencia', 'rojo'
 
 
-        elif tipo_contaminante == 3 :
+        elif nom_particula == 'O3' :
             if valor < 100:
                 return 'Buena', 'verde'
             elif 100 <= valor <= 160:
@@ -90,7 +91,7 @@ class SensorParticulaService:
                 return 'Emergencia', 'rojo'
     
 
-        elif tipo_contaminante == 4 :
+        elif nom_particula == 'NO2' :
             if valor < 50:
                 return 'Buena', 'verde'
             elif 50 <= valor <= 100:
@@ -100,8 +101,17 @@ class SensorParticulaService:
             elif valor > 200:
                 return 'Emergencia', 'rojo'
 
-
-        elif tipo_contaminante == 6:
+        elif nom_particula == 'SO2':
+            if valor < 50:
+                return 'Buena', 'verde'
+            elif 50 <= valor <= 100:
+                return 'Regular', 'amarillo'
+            elif 100 < valor <= 250:
+                return 'Alerta', 'naranja'
+            elif valor > 250:
+                return 'Emergencia', 'rojo'
+            
+        elif nom_particula == 'CO':
             if valor < 9:
                 return 'Buena', 'verde'
             elif 9 <= valor <= 15:
@@ -112,15 +122,7 @@ class SensorParticulaService:
                 return 'Emergencia', 'rojo'
 
 
-        elif tipo_contaminante == 5:
-            if valor < 50:
-                return 'Buena', 'verde'
-            elif 50 <= valor <= 100:
-                return 'Regular', 'amarillo'
-            elif 100 < valor <= 250:
-                return 'Alerta', 'naranja'
-            elif valor > 250:
-                return 'Emergencia', 'rojo'
+
 
 
         return 'Desconocido', 'gris'  # Valor predeterminado si el tipo de contaminante no es válido

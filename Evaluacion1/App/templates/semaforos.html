@@ -86,20 +86,20 @@
 
     <div class="semaforos-container">
         <!-- Semáforo para cada partícula -->
-        {% for particle, status in air_quality_data.items %}
+        {% for particula, estado_color in air_quality_data.items %}
         <div class="semaforo">
             <div class="traffic-light">
-                {% if status == 'No hay datos' %}
-                <p class="no-data">Hoy no hay datos para {{ particle }}</p>
+                {% if estado_color == 'No hay datos' %}
+                <p class="no-data">Hoy no hay datos para {{ particula }}</p>
             {% else %}
-                <div class="light   {% if status == 'verde' %}green
-                                    {% elif status == 'amarillo' %}yellow
-                                    {% elif status == 'naranja' %}orange
-                                    {% elif status == 'rojo' %}red
+                <div class="light   {% if estado_color == 'verde' %}green
+                                    {% elif estado_color == 'amarillo' %}yellow
+                                    {% elif estado_color == 'naranja' %}orange
+                                    {% elif estado_color == 'rojo' %}red
                                     {% endif %}"></div>
             {% endif %}
             </div>
-            <div class="particle-name">{{ particle }}</div>
+            <div class="particle-name">{{ particula }}</div>
         </div>
 
         {% endfor %}
