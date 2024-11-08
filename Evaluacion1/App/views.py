@@ -28,12 +28,16 @@ def mostrar_niveles(request):
         # Usa la fecha actual si no se proporciona en los parámetros
         fecha = datetime.now().strftime("%y%m%d")
         
-    
-    print(fecha,comuna_id)
-    
+        
+        
     particulas = {}
     particulas_ids = {
-        'NO2': 4,  # Puedes añadir más partículas aquí
+        'PM10':1,
+        'PM25':2,
+        'O3'  :3,
+        'NO2' :4,
+        'SO2' :5,
+        'CO'  :6,
     }
     
     for nombre, particula_id in particulas_ids.items():

@@ -1,0 +1,19 @@
+Estructura Completa del Proyecto en N-Capas
+Capa de Datos (Modelo):
+
+models.py: Define el modelo Comuna.
+Capa de Transferencia de Datos (DTO):
+
+dto.py: Define ComunaDTO para transferir los datos de Comuna.
+Capa de Acceso a Datos (DAO):
+
+dao.py: Define ComunaDAO para interactuar con el modelo y convertirlo en DTO.
+Capa de Servicio (Implement):
+
+services.py: Define ComunaService que usa el DAO para obtener los datos.
+Capa de Presentación:
+
+views.py: Define la vista listar_comunas.
+urls.py: Define la ruta listar_comunas/.
+listar_comunas.html: Renderiza el <select> de comunas.
+Este patrón de capas ayuda a desacoplar las responsabilidades de cada componente, facilitando el mantenimiento y la escalabilidad del proyecto.
