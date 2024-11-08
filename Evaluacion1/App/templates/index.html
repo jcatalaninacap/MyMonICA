@@ -23,6 +23,7 @@
             <div class="selection-box">
                 <label for="comunas">Selecciona una comuna:</label>
                 <form action="{% url 'mostrar_niveles' %}" method="GET">
+                    <!--
                     <select id="comunas" name="comuna_id">
                         <option value="todas">Ver todas las comunas</option>
                         <option value="1">Puente Alto</option>  
@@ -36,6 +37,14 @@
                         <option value="9">Santiago</option>     
                         <option value="10">Lo Barnechea</option> 
                     </select>
+-->
+                    <select id="comunas" name="comuna_id">
+                        <option value="todas">Ver todas las comunas</option>
+                        {% for comuna in comunas %}
+                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                    
                     <button type="submit" class="btn">Ver Niveles</button>
                 </form>
             </div>

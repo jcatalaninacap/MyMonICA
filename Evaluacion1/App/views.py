@@ -3,11 +3,18 @@ from django.shortcuts import render
 from datetime import datetime
 from App import DAOComunaImplement
 from App.DAOSensorParticulaImplement import SensorParticulaService
+from App.DAOComuna import ComunaDAO
+
 
 
 def IndexView(request):
-    '''Esta es la página principal'''
-    return render(request, "index.html")
+    
+    comunas=ComunaDAO.obtener_todas_las_comunas()
+    comunas_dto = ComunaDAO.obtener_todas_las_comunas()
+    comunas = [{'id': comuna.id_comuna, 'nombre': comuna.nombre_comuna} for comuna in comunas_dto]
+
+    return render(request, 'index.html', {'comunas': comunas})
+
 
 
 def mostrar_niveles(request):
