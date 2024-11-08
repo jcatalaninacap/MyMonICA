@@ -52,6 +52,10 @@
             background-color: yellow;
         }
 
+        .light.orange {
+            background-color: orange;
+        }
+
         .light.red {
             background-color: red;
         }
@@ -60,98 +64,75 @@
             font-size: 1.2rem;
             margin-top: 10px;
         }
+        .no-data {
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>Indicador de Calidad del Aire</h1>
+    {% if comuna %}
+        <h2>Comuna seleccionada: {{ comuna.nombre_comuna }}</h2>
+    {% else %}
+        <h2>Mostrando niveles para todas las comunas</h2>
+    {% endif %}
+
+   <!-- Contenedor para el calendario -->
+   <div class="date-picker-container">
+    <label for="datePicker">Selecciona una fecha:</label>
+    <input type="date" id="datePicker" name="fecha" max="" onchange="updateDate()" />
+</div>
 
     <div class="semaforos-container">
-        <!-- Semáforo para PM2.5 -->
+        <!-- Semáforo para cada partícula -->
+        {% for particle, status in air_quality_data.items %}
         <div class="semaforo">
             <div class="traffic-light">
-                <div class="light" id="greenLightPM25"></div>
-                <div class="light" id="yellowLightPM25"></div>
-                <div class="light" id="redLightPM25"></div>
+                {% if status == 'No hay datos' %}
+                <p class="no-data">Hoy no hay datos para {{ particle }}</p>
+            {% else %}
+                <div class="light   {% if status == 'verde' %}green
+                                    {% elif status == 'amarillo' %}yellow
+                                    {% elif status == 'naranja' %}orange
+                                    {% elif status == 'rojo' %}red
+                                    {% endif %}"></div>
+            {% endif %}
             </div>
-            <div class="particle-name">PM2.5</div>
+            <div class="particle-name">{{ particle }}</div>
         </div>
-
-        <!-- Semáforo para PM10 -->
-        <div class="semaforo">
-            <div class="traffic-light">
-                <div class="light" id="greenLightPM10"></div>
-                <div class="light" id="yellowLightPM10"></div>
-                <div class="light" id="redLightPM10"></div>
-            </div>
-            <div class="particle-name">PM10</div>
-        </div>
-
-        <!-- Semáforo para NO2 -->
-        <div class="semaforo">
-            <div class="traffic-light">
-                <div class="light" id="greenLightNO2"></div>
-                <div class="light" id="yellowLightNO2"></div>
-                <div class="light" id="redLightNO2"></div>
-            </div>
-            <div class="particle-name">NO2</div>
-        </div>
-
-        <!-- Semáforo para CO -->
-        <div class="semaforo">
-            <div class="traffic-light">
-                <div class="light" id="greenLightCO"></div>
-                <div class="light" id="yellowLightCO"></div>
-                <div class="light" id="redLightCO"></div>
-            </div>
-            <div class="particle-name">CO</div>
-        </div>
-
-        <!-- Semáforo para O3 -->
-        <div class="semaforo">
-            <div class="traffic-light">
-                <div class="light" id="greenLightO3"></div>
-                <div class="light" id="yellowLightO3"></div>
-                <div class="light" id="redLightO3"></div>
-            </div>
-            <div class="particle-name">O3</div>
-        </div>
+        {% endfor %}
     </div>
 
     <script>
-        // Simulación de calidad del aire para cada tipo de partícula
-        let airQualityData = {
-            PM25: 'buena',
-            PM10: 'moderada',
-            NO2: 'mala',
-            CO: 'buena',
-            O3: 'moderada'
-        };
+        document.addEventListener("DOMContentLoaded", function() {
+            const datePicker = document.getElementById("datePicker");
+            const today = new Date().toISOString().split("T")[0];
+            datePicker.max = today;
 
-        function updateTrafficLight(particle, quality) {
-            const greenLight = document.getElementById(`greenLight${particle}`);
-            const yellowLight = document.getElementById(`yellowLight${particle}`);
-            const redLight = document.getElementById(`redLight${particle}`);
+            // Inicializar el valor de fecha si ya existe en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedDate = urlParams.get("fecha");
+            if (selectedDate) {
+                datePicker.value = selectedDate;
+            }
+        });
 
-            // Apagar todas las luces
-            greenLight.classList.remove('green');
-            yellowLight.classList.remove('yellow');
-            redLight.classList.remove('red');
+        // Función para actualizar la fecha y recargar la página con los parámetros actualizados
+        function updateDate() {
+            const datePicker = document.getElementById("datePicker");
+            const selectedDate = datePicker.value;
+            const comunaId = "{{ comuna.id_comuna }}";  // Usa el id de la comuna seleccionada, asegurándose de que esté definido
 
-            if (quality === 'buena') {
-                greenLight.classList.add('green');
-            } else if (quality === 'moderada') {
-                yellowLight.classList.add('yellow');
-            } else if (quality === 'mala') {
-                redLight.classList.add('red');
+            if (comunaId) {
+                // Redirige a la misma URL con los parámetros actualizados
+                window.location.href = `${window.location.pathname}?comuna_id=${comunaId}&fecha=${selectedDate}`;
+            } else {
+                console.error("ID de comuna no disponible");
             }
         }
 
-        // Actualizar los semáforos
-        updateTrafficLight('PM25', airQualityData.PM25);
-        updateTrafficLight('PM10', airQualityData.PM10);
-        updateTrafficLight('NO2', airQualityData.NO2);
-        updateTrafficLight('CO', airQualityData.CO);
-        updateTrafficLight('O3', airQualityData.O3);
+
     </script>
 </body>
 </html>
