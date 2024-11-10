@@ -21,7 +21,7 @@ from App import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.IndexView, name='index'),
+    path('monica/', views.IndexView, name='index'),
     path('niveles/', views.mostrar_niveles, name='mostrar_niveles'),
     
 ]
