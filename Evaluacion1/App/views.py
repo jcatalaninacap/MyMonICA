@@ -46,9 +46,9 @@ def mostrar_niveles(request):
     for nombre, (particula_id, descripcion) in particulas_dict.items():
         try:
             estado_aire = SensorParticulaService.obtener_estado_aire(particula_id, nombre, fecha)
-            particulas[nombre] = estado_aire
-            print(descripcion)
+            particulas[nombre] = {'estado': estado_aire, 'descripcion': descripcion}
+            print(particulas)
         except SensorParticulaService.SensorParticulaNoEncontrada:
-            particulas[nombre] = 'No hay datos'
+            particulas[nombre] = {'estado': 'No hay datos', 'descripcion': descripcion}
 
     return render(request, 'semaforos.html', {'comuna': comuna, 'air_quality_data': particulas})
